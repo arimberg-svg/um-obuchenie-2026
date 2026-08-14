@@ -82,6 +82,7 @@ SUPPLIERS = [
         "contacts": [
             {"name": "Александр", "phone": "89526700072"},
         ],
+        "ask_trainer": False,
     },
     {
         "slug": "agava",
@@ -416,12 +417,12 @@ def page_html(s):
     invitees = s.get("invitees") or []
     if invitees:
         items = "\n".join(
-            f"          <li><strong>{i['role']}:</strong> {i['name']}</li>"
+            f"          <li>{i['name']}</li>"
             for i in invitees
         )
         invitees_html = f"""    <div class="task">
       <div class="n">Со стороны сети</div>
-      <h3>Кого приглашаем на обучение</h3>
+      <h3>Ответственный категорийный менеджер:</h3>
       <ul class="invitees">
 {items}
       </ul>
@@ -451,7 +452,9 @@ def page_html(s):
       <p><strong>{s['office_long']}</strong>{prog}</p>
     </div>
 """
-        visit_intro = "После офиса: 2 соседние точки в день, 10:30 и 12:00, пять рабочих дней. Сеть проводит выезды по согласованной подаче. Просим подтвердить, нужен ли тренер с вашей стороны на точках."
+        visit_intro = "После офиса: 2 соседние точки в день, 10:30 и 12:00, пять рабочих дней."
+        if s.get("ask_trainer", True):
+            visit_intro += " Сеть проводит выезды по согласованной подаче. Просим подтвердить, нужен ли тренер с вашей стороны на точках."
         confirm = "Просим ответить письмом: даты подходят / предложить другие слоты; кто ведёт офис; будете ли на выездах в магазины; когда пришлёте пакет для базы знаний."
     return f"""<!DOCTYPE html>
 <html lang="ru">
@@ -547,8 +550,8 @@ def index_html():
         if who_contact:
             extra_lines += f"\n        <p class=\"contact\">{who_contact}</p>"
         if s.get("invitees"):
-            who = "; ".join(f"{i['role']}: {i['name']}" for i in s["invitees"])
-            extra_lines += f"\n        <p class=\"invitee\">{who}</p>"
+            who = "; ".join(i["name"] for i in s["invitees"])
+            extra_lines += f"\n        <p class=\"invitee\">Ответственный категорийный менеджер: {who}</p>"
         vrows = visit_rows(s)
         if s.get("no_office"):
             meta = f"{vrows[0][0]}–{vrows[-1][0]} · выезды · без офиса"
