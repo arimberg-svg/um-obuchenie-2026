@@ -314,8 +314,8 @@ def coverage_check():
 def page_html(s):
     rows = visit_rows(s)
     trs = "\n".join(
-        f"          <tr><td>{d}, {wd}</td><td>{t}</td><td>{st}</td></tr>"
-        for d, wd, t, st in rows
+        f"          <tr><td>{d}, {wd}</td><td>{t}</td><td>Магазин {i}</td></tr>"
+        for i, (d, wd, t, _st) in enumerate(rows, 1)
     )
     extra = f"<p>{s['extra']}</p>" if s.get("extra") else ""
     prog = f" {s['office_prog']}" if s.get("office_prog") else ""
@@ -408,7 +408,7 @@ def index_html():
         "022027": "Февраль 2027",
     }
     for k in order:
-        months[k] = {"kb": [], "office": [], "visits": 0}
+        months[k] = {"kb": [], "office": []}
 
     for s in SUPPLIERS:
         cards.append(f"""      <a class="card" href="p/{s['slug']}.html">
@@ -423,22 +423,10 @@ def index_html():
         )
         om = s["office_iso"][3:5] + s["office_iso"][6:]
         months[om]["office"].append(f"{s['short']} {s['office_iso'][:5]}")
-        # KB due month
         kb = s["kb_pill"]
         km = kb[3:5] + kb[6:]
         if km in months:
             months[km]["kb"].append(s["short"])
-        months[om]["visits"] += 10  # visits happen mostly same month as office week+next
-        # actually visits spill to next month sometimes - count by visit date
-        months[om]["visits"] = months[om].get("visits", 0)
-
-    # recount visits by actual date
-    for k in order:
-        months[k]["visits"] = 0
-    for s in SUPPLIERS:
-        for d, wd, t, st in visit_rows(s):
-            mk = d[3:5] + d[6:]
-            months[mk]["visits"] += 1
 
     month_trs = []
     for k in order:
@@ -446,16 +434,8 @@ def index_html():
         kb = ", ".join(m["kb"]) or "—"
         of = ", ".join(m["office"]) or "—"
         month_trs.append(
-            f"        <tr><td>{labels[k]}</td><td>{kb}</td><td>{of}</td>"
-            f"<td>{m['visits']} выездов</td></tr>"
+            f"        <tr><td>{labels[k]}</td><td>{kb}</td><td>{of}</td></tr>"
         )
-
-    visit_trs = []
-    for s in SUPPLIERS:
-        for d, wd, t, st in visit_rows(s):
-            visit_trs.append(
-                f"        <tr><td>{d}, {wd}</td><td>{t}</td><td>{s['short']}</td><td>{st}</td></tr>"
-            )
 
     return f"""<!DOCTYPE html>
 <html lang="ru">
@@ -509,7 +489,6 @@ def index_html():
           <th>Месяц</th>
           <th>База знаний</th>
           <th>Офис, вт 14:00–16:00</th>
-          <th>Выезды в магазины</th>
         </tr>
       </thead>
       <tbody>
@@ -524,16 +503,6 @@ def index_html():
       </thead>
       <tbody>
 {chr(10).join(office_rows)}
-      </tbody>
-    </table>
-
-    <h2>Календарь выездов (110)</h2>
-    <table>
-      <thead>
-        <tr><th>Дата</th><th>Время</th><th>Поставщик</th><th>Магазин</th></tr>
-      </thead>
-      <tbody>
-{chr(10).join(visit_trs)}
       </tbody>
     </table>
 
