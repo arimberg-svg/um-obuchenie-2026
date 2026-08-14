@@ -200,11 +200,11 @@ body.theme-arrows { --brand: #4208a8; --brand-2: #33b062; --brand-soft: #eee8f8;
 body.theme-agava { --brand: #4208a8; --brand-2: #33b062; --brand-soft: #eee8f8; }
 body.theme-rusgeocom { --brand: #4208a8; --brand-2: #33b062; --brand-soft: #eee8f8; }
 body.theme-elbin { --brand: #4208a8; --brand-2: #33b062; --brand-soft: #eee8f8; }
-body.theme-onemoto { --brand: #111111; --brand-2: #F5C518; --brand-soft: #f7f3e0; }
+body.theme-n1tools { --brand: #e30613; --brand-2: #1d1d1b; --brand-soft: #fce8ea; }
 
-body.theme-esab h2, body.theme-onemoto h2 { color: var(--brand); }
+body.theme-esab h2 { color: var(--brand); }
 body.theme-esab .pill { background: #111; color: #F8EE00; }
-body.theme-onemoto .pill { background: #111; color: #F5C518; }
+body.theme-n1tools .pill { background: #e30613; color: #fff; }
 
 .page-hero {
   background: var(--brand);
