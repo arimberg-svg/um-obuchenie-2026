@@ -198,7 +198,7 @@ body.theme-dulux { --brand: #1F1E70; --brand-2: #2aa3d9; --brand-soft: #e8eaf6; 
 body.theme-trio { --brand: #E87722; --brand-2: #1A1A1A; --brand-soft: #f8eee6; }
 body.theme-esab { --brand: #111111; --brand-2: #F8EE00; --brand-soft: #f4f4e6; }
 body.theme-arrows { --brand: #327DAD; --brand-2: #3f4448; --brand-soft: #e8f4fb; }
-body.theme-agava { --brand: #4208a8; --brand-2: #fd6114; --brand-soft: #eee8f8; }
+body.theme-agava { --brand: #4b907b; --brand-2: #151A25; --brand-soft: #c5ddda; }
 body.theme-rusgeocom { --brand: #1C77C3; --brand-2: #62b7ff; --brand-soft: #e7f3fc; }
 body.theme-elbin { --brand: #111111; --brand-2: #ffd546; --brand-soft: #fff8d6; }
 body.theme-n1tools { --brand: #e30613; --brand-2: #1d1d1b; --brand-soft: #fce8ea; }
@@ -212,6 +212,7 @@ body.theme-rusgeocom .pill { background: #1C77C3; color: #fff; }
 body.theme-elbin .pill { background: #ffd546; color: #111; }
 body.theme-elbin .page-hero .logo-mark { background: #ffd546; }
 body.theme-txt .pill { background: #0B7191; color: #fff; }
+body.theme-agava .pill { background: #4b907b; color: #fff; }
 
 .invitees {
   margin: 8px 0 0;

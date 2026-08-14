@@ -73,7 +73,7 @@ SUPPLIERS = [
         "office_topic": "ЛКМ и хозтовары",
         "dates": [
             ("02.09.2026", "ср"), ("03.09.2026", "чт"), ("04.09.2026", "пт"),
-            ("07.09.2026", "пн"), ("08.09.2026", "вт"),
+            ("07.09.2026", "пн"), ("10.09.2026", "чт"),
         ],
         "routes": [8, 9, 0, 1, 2],
         "invitees": [
@@ -82,6 +82,36 @@ SUPPLIERS = [
         "contacts": [
             {"name": "Александр", "phone": "89526700072"},
         ],
+    },
+    {
+        "slug": "agava",
+        "theme": "agava",
+        "short": "Агава",
+        "title": "Агава ООО",
+        "inn": "ИНН 6674378752. Сантехника оптом: смесители, унитазы, душ, трубы, насосы, мебель для ванных. agava-ural.ru",
+        "card": "Сантехника оптом",
+        "no_office": True,
+        "kb_until": "25 августа 2026",
+        "kb_pill": "25.08.2026",
+        "kb": "Бытовая и инженерная сантехника, инсталляции, смесители, типовые комплекты, частые ошибки монтажа для консультации покупателя.",
+        "logo": "../img/agava.png",
+        "office_topic": "Сантехника",
+        "visits": [
+            ("08.09.2026", "вт", "10:00–10:25", 0),
+            ("08.09.2026", "вт", "10:40–11:05", 1),
+            ("08.09.2026", "вт", "11:30–11:55", 2),
+            ("08.09.2026", "вт", "12:30–12:55", 3),
+            ("08.09.2026", "вт", "14:00–14:25", 13),
+            ("09.09.2026", "ср", "10:00–10:25", 14),
+            ("09.09.2026", "ср", "11:00–11:25", 15),
+            ("09.09.2026", "ср", "12:00–12:25", 17),
+            ("09.09.2026", "ср", "13:30–13:55", 19),
+            ("09.09.2026", "ср", "14:30–14:55", 11),
+        ],
+        "invitees": [
+            {"role": "Категорийный менеджер", "name": "Эльвира Носкова"},
+        ],
+        "extra": "Очного обучения в офисе не будет. В маршруте 8 сентября — зал сантехники на Дружбы, 66.",
     },
     {
         "slug": "greenworks",
@@ -239,28 +269,6 @@ SUPPLIERS = [
         "routes": [6, 7, 8, 9, 0],
     },
     {
-        "slug": "agava",
-        "theme": "agava",
-        "short": "Агава",
-        "title": "Агава ООО",
-        "inn": "ИНН 6674378752. Сантехника оптом: смесители, унитазы, душ, трубы, насосы, мебель для ванных. agava-ural.ru",
-        "card": "Сантехника оптом",
-        "office_iso": "22.12.2026",
-        "office_long": "Вторник 22 декабря 2026, 14:00–16:00 (2 часа). До новогодних каникул.",
-        "office_prog": "Выезды — 23–29 декабря, до праздников. В маршруте есть зал сантехники на Дружбы, 66.",
-        "kb_until": "8 декабря 2026",
-        "kb_pill": "08.12.2026",
-        "kb": "Бытовая и инженерная сантехника, инсталляции, смесители, типовые комплекты, частые ошибки монтажа для консультации покупателя.",
-        "logo": "../img/agava.svg",
-        "office_topic": "Сантехника",
-        "dates": [
-            ("23.12.2026", "ср"), ("24.12.2026", "чт"), ("25.12.2026", "пт"),
-            ("28.12.2026", "пн"), ("29.12.2026", "вт"),
-        ],
-        "routes": [7, 8, 9, 0, 1],  # includes Дружбы сантехника
-        "extra": "Новогодние каникулы (31.12–08.01) в графике свободны.",
-    },
-    {
         "slug": "rusgeokom",
         "theme": "rusgeocom",
         "short": "Русгеоком",
@@ -280,6 +288,7 @@ SUPPLIERS = [
             ("18.01.2027", "пн"), ("19.01.2027", "вт"),
         ],
         "routes": [8, 9, 0, 1, 2],
+        "extra": "Новогодние каникулы (31.12–08.01) в графике свободны.",
     },
     {
         "slug": "elbin",
@@ -357,6 +366,8 @@ def contact_text(s):
 
 
 def visit_rows(s):
+    if s.get("visits"):
+        return [(d, wd, t, STORES[i]) for d, wd, t, i in s["visits"]]
     return visits_for(s["dates"], s["routes"])
 
 
@@ -422,6 +433,27 @@ def page_html(s):
     hero_cls = "page-hero dark-logo" if s.get("dark_logo") else "page-hero"
     first = rows[0][0]
     last = rows[-1][0]
+    no_office = bool(s.get("no_office"))
+    if no_office:
+        office_pill = '<span class="pill">Без офиса</span>'
+        office_task = """    <div class="task">
+      <div class="n">Задание 2 · офис</div>
+      <h3>Очного обучения в офисе не будет</h3>
+      <p>Поставщик проводит только выезды в магазины. Офисную сессию 14:00–16:00 не ставим.</p>
+    </div>
+"""
+        visit_intro = "Два дня, 8 и 9 сентября: по 5 точек в день, 20–25 мин. Сеть проводит выезды по согласованной подаче. Просим подтвердить, нужен ли тренер с вашей стороны на точках."
+        confirm = "Просим ответить письмом: даты выездов подходят / предложить другие слоты; будете ли на точках; когда пришлёте пакет для базы знаний."
+    else:
+        office_pill = f'<span class="pill">Офис {s["office_iso"]}, 14:00–16:00</span>'
+        office_task = f"""    <div class="task">
+      <div class="n">Задание 2 · офис</div>
+      <h3>Провести обучение в офисе</h3>
+      <p><strong>{s['office_long']}</strong>{prog}</p>
+    </div>
+"""
+        visit_intro = "После офиса: 2 соседние точки в день, 10:30 и 12:00, пять рабочих дней. Сеть проводит выезды по согласованной подаче. Просим подтвердить, нужен ли тренер с вашей стороны на точках."
+        confirm = "Просим ответить письмом: даты подходят / предложить другие слоты; кто ведёт офис; будете ли на выездах в магазины; когда пришлёте пакет для базы знаний."
     return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -442,7 +474,7 @@ def page_html(s):
 
     <div class="pills">
       <span class="pill">БЗ до {s['kb_pill']}</span>
-      <span class="pill">Офис {s['office_iso']}, 14:00–16:00</span>
+      {office_pill}
       <span class="pill">10 магазинов {first}–{last}</span>
     </div>
 
@@ -452,15 +484,10 @@ def page_html(s):
       <h3>Сдать материалы до {s['kb_until']}</h3>
       <p>{s['kb']}</p>
     </div>
-    <div class="task">
-      <div class="n">Задание 2 · офис</div>
-      <h3>Провести обучение в офисе</h3>
-      <p><strong>{s['office_long']}</strong>{prog}</p>
-    </div>
-{contacts_html}{invitees_html}    <div class="task">
+{office_task}{contacts_html}{invitees_html}    <div class="task">
       <div class="n">Задание 3 · магазины</div>
       <h3>Мини-обучения в 10 магазинах, по 20–30 мин</h3>
-      <p>После офиса: 2 соседние точки в день, 10:30 и 12:00, пять рабочих дней. Сеть проводит выезды по согласованной подаче. Просим подтвердить, нужен ли тренер с вашей стороны на точках.</p>
+      <p>{visit_intro}</p>
       <table>
         <thead><tr><th>Дата</th><th>Время</th><th>Магазин</th></tr></thead>
         <tbody>
@@ -472,7 +499,7 @@ def page_html(s):
 
     <div class="ok">
       <h3>Подтверждение поставщика</h3>
-      <p>Просим ответить письмом: даты подходят / предложить другие слоты; кто ведёт офис; будете ли на выездах в магазины; когда пришлёте пакет для базы знаний.</p>
+      <p>{confirm}</p>
     </div>
     <footer>Страница для согласования графика обучений сети «У Михалыча».</footer>
   </div>
@@ -500,6 +527,7 @@ def index_html():
     office_rows = []
     months = {}
     n = len(SUPPLIERS)
+    n_office = sum(1 for s in SUPPLIERS if not s.get("no_office"))
     visits = n * 10
     order = ["082026", "092026", "102026", "112026", "122026", "012027", "022027"]
     labels = {
@@ -522,18 +550,30 @@ def index_html():
         if s.get("invitees"):
             who = "; ".join(f"{i['role']}: {i['name']}" for i in s["invitees"])
             extra_lines += f"\n        <p class=\"invitee\">{who}</p>"
+        vrows = visit_rows(s)
+        if s.get("no_office"):
+            meta = f"{vrows[0][0]}–{vrows[-1][0]} · выезды · без офиса"
+        else:
+            meta = f"{s['office_iso']} · офис 14:00–16:00 · 10 магазинов"
         cards.append(f"""      <a class="card" href="p/{s['slug']}.html">
-        <div class="meta">{s['office_iso']} · офис 14:00–16:00 · 10 магазинов</div>
+        <div class="meta">{meta}</div>
         <h3>{s['short']}</h3>
         <p>{s['card']}</p>{extra_lines}
       </a>""")
-        office_rows.append(
-            f"        <tr><td>{s['office_iso']}, вт</td><td>14:00–16:00</td>"
-            f"<td>{s['short']}</td><td>{s['office_topic']}</td>"
-            f"<td><a href=\"p/{s['slug']}.html\">открыть</a></td></tr>"
-        )
-        om = s["office_iso"][3:5] + s["office_iso"][6:]
-        months[om]["office"].append(f"{s['short']} {s['office_iso'][:5]}")
+        if s.get("no_office"):
+            vm = vrows[0][0][3:5] + vrows[0][0][6:]
+            if vm in months:
+                months[vm]["office"].append(
+                    f"{s['short']} выезды {vrows[0][0][:5]}–{vrows[-1][0][:5]}"
+                )
+        else:
+            office_rows.append(
+                f"        <tr><td>{s['office_iso']}, вт</td><td>14:00–16:00</td>"
+                f"<td>{s['short']}</td><td>{s['office_topic']}</td>"
+                f"<td><a href=\"p/{s['slug']}.html\">открыть</a></td></tr>"
+            )
+            om = s["office_iso"][3:5] + s["office_iso"][6:]
+            months[om]["office"].append(f"{s['short']} {s['office_iso'][:5]}")
         kb = s["kb_pill"]
         km = kb[3:5] + kb[6:]
         if km in months:
@@ -571,20 +611,20 @@ def index_html():
       </div>
       <div class="pills">
         <span class="pill">{n} поставщиков</span>
-        <span class="pill">{n} офисных сессий</span>
+        <span class="pill">{n_office} офисных сессий</span>
         <span class="pill">{visits} выездов</span>
       </div>
     </header>
 
     <div class="stats">
       <div class="stat"><b>{n}</b><span>материалов в базу знаний</span></div>
-      <div class="stat"><b>{n} × 2 ч</b><span>офис, вторник 14:00–16:00</span></div>
+      <div class="stat"><b>{n_office} × 2 ч</b><span>офис, вторник 14:00–16:00</span></div>
       <div class="stat"><b>{visits}</b><span>выездов: {n} × 10 магазинов</span></div>
       <div class="stat"><b>20 точек</b><span>Тюмень и Тюменский район</span></div>
     </div>
 
     <div class="note">
-      <strong>Порядок по каждому поставщику:</strong> сдать материалы для базы знаний → провести обучение в офисе → мини-обучения в залах. После офиса — 5 рабочих дней, по 2 соседние точки (10:30 и 12:00, по 25 мин). Выезды не ставятся на день офиса этой компании. 4 ноября 2026 и новогодние каникулы свободны.
+      <strong>Порядок по каждому поставщику:</strong> сдать материалы для базы знаний → обучение в офисе (если есть) → мини-обучения в залах. После офиса обычно 5 рабочих дней, по 2 соседние точки (10:30 и 12:00, по 25 мин). Выезды не ставятся на день офиса этой компании. У Агавы офиса нет — только выезды 8–9 сентября. 4 ноября 2026 и новогодние каникулы свободны.
     </div>
 
     <h2>Страницы для согласования</h2>
@@ -599,7 +639,7 @@ def index_html():
         <tr>
           <th>Месяц</th>
           <th>База знаний</th>
-          <th>Офис, вт 14:00–16:00</th>
+          <th>Офис / выезды</th>
         </tr>
       </thead>
       <tbody>
@@ -647,7 +687,8 @@ def readme():
         rows = visit_rows(s)
         span = f"{rows[0][0]}–{rows[-1][0]}"
         url = f"https://arimberg-svg.github.io/um-obuchenie-2026/p/{s['slug']}.html"
-        lines.append(f"| {s['short']} | {s['office_iso']}, 14:00–16:00 | 10 точек, {span} | [открыть]({url}) |")
+        office = "без офиса" if s.get("no_office") else f"{s['office_iso']}, 14:00–16:00"
+        lines.append(f"| {s['short']} | {office} | 10 точек, {span} | [открыть]({url}) |")
     lines.append("")
     return "\n".join(lines) + "\n"
 

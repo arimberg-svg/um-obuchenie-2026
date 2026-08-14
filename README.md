@@ -12,7 +12,8 @@
 
 | Поставщик | Офис | Магазины | Ссылка |
 |---|---|---|---|
-| ТД ТХТ | 01.09.2026, 14:00–16:00 | 10 точек, 02.09.2026–08.09.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/txt.html) |
+| ТД ТХТ | 01.09.2026, 14:00–16:00 | 10 точек, 02.09.2026–10.09.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/txt.html) |
+| Агава | без офиса | 10 точек, 08.09.2026–09.09.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/agava.html) |
 | Гринворкстулс | 15.09.2026, 14:00–16:00 | 10 точек, 16.09.2026–22.09.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/greenworks.html) |
 | ТД Финские краски | 29.09.2026, 14:00–16:00 | 10 точек, 30.09.2026–06.10.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/finskie-kraski.html) |
 | Профессиональный инструмент | 13.10.2026, 14:00–16:00 | 10 точек, 14.10.2026–20.10.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/professionalnyy-instrument.html) |
@@ -20,7 +21,6 @@
 | Трио Диамант ЛТД | 10.11.2026, 14:00–16:00 | 10 точек, 11.11.2026–17.11.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/trio-diamant.html) |
 | ЭСАБ | 24.11.2026, 14:00–16:00 | 10 точек, 25.11.2026–01.12.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/esab.html) |
 | Северные Стрелы | 08.12.2026, 14:00–16:00 | 10 точек, 09.12.2026–15.12.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/severnye-strely.html) |
-| Агава | 22.12.2026, 14:00–16:00 | 10 точек, 23.12.2026–29.12.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/agava.html) |
 | Русгеоком | 12.01.2027, 14:00–16:00 | 10 точек, 13.01.2027–19.01.2027 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/rusgeokom.html) |
 | Элбин · Champion | 26.01.2027, 14:00–16:00 | 10 точек, 27.01.2027–02.02.2027 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/elbin.html) |
 | ИП Миронов · Number One | 09.02.2027, 14:00–16:00 | 10 точек, 10.02.2027–16.02.2027 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/onemoto.html) |
