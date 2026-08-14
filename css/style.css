@@ -218,7 +218,8 @@ body.theme-txt .pill { background: #0B7191; color: #fff; }
   padding-left: 1.2em;
 }
 .invitees li { margin: 4px 0; }
-.card .invitee {
+.card .invitee,
+.card .contact {
   margin: 8px 0 0;
   font-size: 13px;
   color: var(--muted);

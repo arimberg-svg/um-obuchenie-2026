@@ -79,6 +79,9 @@ SUPPLIERS = [
         "invitees": [
             {"role": "Категорийный менеджер", "name": "Раиса Аванесова"},
         ],
+        "contacts": [
+            {"name": "Александр", "phone": "89526700072"},
+        ],
     },
     {
         "slug": "greenworks",
@@ -323,6 +326,36 @@ SUPPLIERS = [
 ]
 
 
+def phone_digits(raw):
+    return "".join(c for c in raw if c.isdigit())
+
+
+def format_phone(raw):
+    d = phone_digits(raw)
+    if len(d) == 11 and d[0] in "78":
+        return f"8 ({d[1:4]}) {d[4:7]}-{d[7:9]}-{d[9:11]}"
+    return raw
+
+
+def tel_href(raw):
+    d = phone_digits(raw)
+    if len(d) == 11 and d[0] == "8":
+        d = "7" + d[1:]
+    if len(d) == 11 and d[0] == "7":
+        return f"tel:+{d}"
+    return f"tel:{raw}"
+
+
+def contact_text(s):
+    contacts = s.get("contacts") or []
+    if not contacts:
+        return ""
+    return "; ".join(
+        f"{c['name']}, {format_phone(c['phone'])}" if c.get("phone") else c["name"]
+        for c in contacts
+    )
+
+
 def visit_rows(s):
     return visits_for(s["dates"], s["routes"])
 
@@ -348,6 +381,28 @@ def page_html(s):
     )
     extra = f"<p>{s['extra']}</p>" if s.get("extra") else ""
     prog = f" {s['office_prog']}" if s.get("office_prog") else ""
+    contacts = s.get("contacts") or []
+    if contacts:
+        items = "\n".join(
+            f'          <li><strong>{c["name"]}</strong>'
+            + (
+                f': <a href="{tel_href(c["phone"])}">{format_phone(c["phone"])}</a>'
+                if c.get("phone")
+                else ""
+            )
+            + "</li>"
+            for c in contacts
+        )
+        contacts_html = f"""    <div class="task">
+      <div class="n">Контакт поставщика</div>
+      <h3>С кем согласовывать</h3>
+      <ul class="invitees">
+{items}
+      </ul>
+    </div>
+"""
+    else:
+        contacts_html = ""
     invitees = s.get("invitees") or []
     if invitees:
         items = "\n".join(
@@ -402,7 +457,7 @@ def page_html(s):
       <h3>Провести обучение в офисе</h3>
       <p><strong>{s['office_long']}</strong>{prog}</p>
     </div>
-{invitees_html}    <div class="task">
+{contacts_html}{invitees_html}    <div class="task">
       <div class="n">Задание 3 · магазины</div>
       <h3>Мини-обучения в 10 магазинах, по 20–30 мин</h3>
       <p>После офиса: 2 соседние точки в день, 10:30 и 12:00, пять рабочих дней. Сеть проводит выезды по согласованной подаче. Просим подтвердить, нужен ли тренер с вашей стороны на точках.</p>
@@ -460,14 +515,17 @@ def index_html():
         months[k] = {"kb": [], "office": []}
 
     for s in SUPPLIERS:
-        invitee_line = ""
+        extra_lines = ""
+        who_contact = contact_text(s)
+        if who_contact:
+            extra_lines += f"\n        <p class=\"contact\">{who_contact}</p>"
         if s.get("invitees"):
             who = "; ".join(f"{i['role']}: {i['name']}" for i in s["invitees"])
-            invitee_line = f"\n        <p class=\"invitee\">{who}</p>"
+            extra_lines += f"\n        <p class=\"invitee\">{who}</p>"
         cards.append(f"""      <a class="card" href="p/{s['slug']}.html">
         <div class="meta">{s['office_iso']} · офис 14:00–16:00 · 10 магазинов</div>
         <h3>{s['short']}</h3>
-        <p>{s['card']}</p>{invitee_line}
+        <p>{s['card']}</p>{extra_lines}
       </a>""")
         office_rows.append(
             f"        <tr><td>{s['office_iso']}, вт</td><td>14:00–16:00</td>"
