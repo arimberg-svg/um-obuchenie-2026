@@ -202,6 +202,7 @@ body.theme-agava { --brand: #4208a8; --brand-2: #fd6114; --brand-soft: #eee8f8; 
 body.theme-rusgeocom { --brand: #1C77C3; --brand-2: #62b7ff; --brand-soft: #e7f3fc; }
 body.theme-elbin { --brand: #111111; --brand-2: #ffd546; --brand-soft: #fff8d6; }
 body.theme-n1tools { --brand: #e30613; --brand-2: #1d1d1b; --brand-soft: #fce8ea; }
+body.theme-txt { --brand: #0B7191; --brand-2: #FB5914; --brand-soft: #e5f3f6; }
 
 body.theme-esab h2 { color: var(--brand); }
 body.theme-esab .pill { background: #111; color: #F8EE00; }
@@ -210,6 +211,18 @@ body.theme-arrows .pill { background: #327DAD; color: #fff; }
 body.theme-rusgeocom .pill { background: #1C77C3; color: #fff; }
 body.theme-elbin .pill { background: #ffd546; color: #111; }
 body.theme-elbin .page-hero .logo-mark { background: #ffd546; }
+body.theme-txt .pill { background: #0B7191; color: #fff; }
+
+.invitees {
+  margin: 8px 0 0;
+  padding-left: 1.2em;
+}
+.invitees li { margin: 4px 0; }
+.card .invitee {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
 
 .page-hero {
   background: var(--brand);

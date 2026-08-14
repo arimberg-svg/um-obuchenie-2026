@@ -12,6 +12,7 @@
 
 | Поставщик | Офис | Магазины | Ссылка |
 |---|---|---|---|
+| ТД ТХТ | 01.09.2026, 14:00–16:00 | 10 точек, 02.09.2026–08.09.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/txt.html) |
 | Гринворкстулс | 15.09.2026, 14:00–16:00 | 10 точек, 16.09.2026–22.09.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/greenworks.html) |
 | ТД Финские краски | 29.09.2026, 14:00–16:00 | 10 точек, 30.09.2026–06.10.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/finskie-kraski.html) |
 | Профессиональный инструмент | 13.10.2026, 14:00–16:00 | 10 точек, 14.10.2026–20.10.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/professionalnyy-instrument.html) |

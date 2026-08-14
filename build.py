@@ -57,6 +57,30 @@ def visits_for(dates, route_ids):
 
 SUPPLIERS = [
     {
+        "slug": "txt",
+        "theme": "txt",
+        "short": "ТД ТХТ",
+        "title": "ТД ТХТ ООО",
+        "inn": "ИНН 7203445150. Торговый дом ТюменьХозТорг: строительные и отделочные материалы, ЛКМ, деревозащита, хозтовары. txt72.ru",
+        "card": "Строительные материалы, ЛКМ, хозтовары",
+        "office_iso": "01.09.2026",
+        "office_long": "Вторник 1 сентября 2026, 14:00–16:00 (2 часа).",
+        "office_prog": "Программа: лакокрасочные материалы, колеровка, деревозащита, ходовые хозтовары и расходники для розницы.",
+        "kb_until": "18 августа 2026",
+        "kb_pill": "18.08.2026",
+        "kb": "Линейки ЛКМ и деревозащиты, колеровка, монтажные пены и герметики, ходовые позиции сезона, скрипт продавца.",
+        "logo": "../img/txt.png",
+        "office_topic": "ЛКМ и хозтовары",
+        "dates": [
+            ("02.09.2026", "ср"), ("03.09.2026", "чт"), ("04.09.2026", "пт"),
+            ("07.09.2026", "пн"), ("08.09.2026", "вт"),
+        ],
+        "routes": [8, 9, 0, 1, 2],
+        "invitees": [
+            {"role": "Категорийный менеджер", "name": "Раиса Аванесова"},
+        ],
+    },
+    {
         "slug": "greenworks",
         "theme": "greenworks",
         "short": "Гринворкстулс",
@@ -97,6 +121,9 @@ SUPPLIERS = [
             ("05.10.2026", "пн"), ("06.10.2026", "вт"),
         ],
         "routes": [1, 2, 3, 4, 5],
+        "invitees": [
+            {"role": "Категорийный менеджер", "name": "Раиса Аванесова"},
+        ],
     },
     {
         "slug": "professionalnyy-instrument",
@@ -140,6 +167,9 @@ SUPPLIERS = [
         ],
         "routes": [3, 4, 5, 6, 7],
         "extra": "4 ноября (День народного единства) в графике свободен.",
+        "invitees": [
+            {"role": "Категорийный менеджер", "name": "Раиса Аванесова"},
+        ],
     },
     {
         "slug": "trio-diamant",
@@ -318,6 +348,22 @@ def page_html(s):
     )
     extra = f"<p>{s['extra']}</p>" if s.get("extra") else ""
     prog = f" {s['office_prog']}" if s.get("office_prog") else ""
+    invitees = s.get("invitees") or []
+    if invitees:
+        items = "\n".join(
+            f"          <li><strong>{i['role']}:</strong> {i['name']}</li>"
+            for i in invitees
+        )
+        invitees_html = f"""    <div class="task">
+      <div class="n">Со стороны сети</div>
+      <h3>Кого приглашаем на обучение</h3>
+      <ul class="invitees">
+{items}
+      </ul>
+    </div>
+"""
+    else:
+        invitees_html = ""
     hero_cls = "page-hero dark-logo" if s.get("dark_logo") else "page-hero"
     first = rows[0][0]
     last = rows[-1][0]
@@ -356,7 +402,7 @@ def page_html(s):
       <h3>Провести обучение в офисе</h3>
       <p><strong>{s['office_long']}</strong>{prog}</p>
     </div>
-    <div class="task">
+{invitees_html}    <div class="task">
       <div class="n">Задание 3 · магазины</div>
       <h3>Мини-обучения в 10 магазинах, по 20–30 мин</h3>
       <p>После офиса: 2 соседние точки в день, 10:30 и 12:00, пять рабочих дней. Сеть проводит выезды по согласованной подаче. Просим подтвердить, нужен ли тренер с вашей стороны на точках.</p>
@@ -384,6 +430,7 @@ def month_key(date):
     d, m, y = date.split(".")
     names = {
         "09": ("Сентябрь", "2026"),
+        "08": ("Август", "2026"),
         "10": ("Октябрь", "2026"),
         "11": ("Ноябрь", "2026"),
         "12": ("Декабрь", "2026"),
@@ -397,8 +444,11 @@ def index_html():
     cards = []
     office_rows = []
     months = {}
-    order = ["092026", "102026", "112026", "122026", "012027", "022027"]
+    n = len(SUPPLIERS)
+    visits = n * 10
+    order = ["082026", "092026", "102026", "112026", "122026", "012027", "022027"]
     labels = {
+        "082026": "Август 2026",
         "092026": "Сентябрь 2026",
         "102026": "Октябрь 2026",
         "112026": "Ноябрь 2026",
@@ -410,10 +460,14 @@ def index_html():
         months[k] = {"kb": [], "office": []}
 
     for s in SUPPLIERS:
+        invitee_line = ""
+        if s.get("invitees"):
+            who = "; ".join(f"{i['role']}: {i['name']}" for i in s["invitees"])
+            invitee_line = f"\n        <p class=\"invitee\">{who}</p>"
         cards.append(f"""      <a class="card" href="p/{s['slug']}.html">
         <div class="meta">{s['office_iso']} · офис 14:00–16:00 · 10 магазинов</div>
         <h3>{s['short']}</h3>
-        <p>{s['card']}</p>
+        <p>{s['card']}</p>{invitee_line}
       </a>""")
         office_rows.append(
             f"        <tr><td>{s['office_iso']}, вт</td><td>14:00–16:00</td>"
@@ -458,16 +512,16 @@ def index_html():
         <p class="lede">Сначала материал в базу знаний, затем обучение в офисе (вторник 14:00–16:00), затем выезды: каждый поставщик — минимум в 10 магазинах. Ниже сводка и ссылки на страницы для согласования.</p>
       </div>
       <div class="pills">
-        <span class="pill">11 поставщиков</span>
-        <span class="pill">11 офисных сессий</span>
-        <span class="pill">110 выездов</span>
+        <span class="pill">{n} поставщиков</span>
+        <span class="pill">{n} офисных сессий</span>
+        <span class="pill">{visits} выездов</span>
       </div>
     </header>
 
     <div class="stats">
-      <div class="stat"><b>11</b><span>материалов в базу знаний</span></div>
-      <div class="stat"><b>11 × 2 ч</b><span>офис, вторник 14:00–16:00</span></div>
-      <div class="stat"><b>110</b><span>выездов: 11 × 10 магазинов</span></div>
+      <div class="stat"><b>{n}</b><span>материалов в базу знаний</span></div>
+      <div class="stat"><b>{n} × 2 ч</b><span>офис, вторник 14:00–16:00</span></div>
+      <div class="stat"><b>{visits}</b><span>выездов: {n} × 10 магазинов</span></div>
       <div class="stat"><b>20 точек</b><span>Тюмень и Тюменский район</span></div>
     </div>
 
