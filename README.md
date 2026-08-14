@@ -21,6 +21,6 @@
 | Северные Стрелы | 08.12.2026, 14:00–16:00 | 10 точек, 09.12.2026–15.12.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/severnye-strely.html) |
 | Агава | 22.12.2026, 14:00–16:00 | 10 точек, 23.12.2026–29.12.2026 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/agava.html) |
 | Русгеоком | 12.01.2027, 14:00–16:00 | 10 точек, 13.01.2027–19.01.2027 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/rusgeokom.html) |
-| Элбин | 26.01.2027, 14:00–16:00 | 10 точек, 27.01.2027–02.02.2027 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/elbin.html) |
+| Элбин · Champion | 26.01.2027, 14:00–16:00 | 10 точек, 27.01.2027–02.02.2027 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/elbin.html) |
 | ИП Миронов · Number One | 09.02.2027, 14:00–16:00 | 10 точек, 10.02.2027–16.02.2027 | [открыть](https://arimberg-svg.github.io/um-obuchenie-2026/p/onemoto.html) |
 

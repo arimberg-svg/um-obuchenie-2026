@@ -197,15 +197,19 @@ body.theme-knipex { --brand: #CC2229; --brand-2: #1a365d; --brand-soft: #f8e8e9;
 body.theme-dulux { --brand: #1F1E70; --brand-2: #2aa3d9; --brand-soft: #e8eaf6; }
 body.theme-trio { --brand: #E87722; --brand-2: #1A1A1A; --brand-soft: #f8eee6; }
 body.theme-esab { --brand: #111111; --brand-2: #F8EE00; --brand-soft: #f4f4e6; }
-body.theme-arrows { --brand: #4208a8; --brand-2: #fd6114; --brand-soft: #eee8f8; }
+body.theme-arrows { --brand: #327DAD; --brand-2: #3f4448; --brand-soft: #e8f4fb; }
 body.theme-agava { --brand: #4208a8; --brand-2: #fd6114; --brand-soft: #eee8f8; }
-body.theme-rusgeocom { --brand: #4208a8; --brand-2: #fd6114; --brand-soft: #eee8f8; }
-body.theme-elbin { --brand: #4208a8; --brand-2: #fd6114; --brand-soft: #eee8f8; }
+body.theme-rusgeocom { --brand: #1C77C3; --brand-2: #62b7ff; --brand-soft: #e7f3fc; }
+body.theme-elbin { --brand: #111111; --brand-2: #ffd546; --brand-soft: #fff8d6; }
 body.theme-n1tools { --brand: #e30613; --brand-2: #1d1d1b; --brand-soft: #fce8ea; }
 
 body.theme-esab h2 { color: var(--brand); }
 body.theme-esab .pill { background: #111; color: #F8EE00; }
 body.theme-n1tools .pill { background: #e30613; color: #fff; }
+body.theme-arrows .pill { background: #327DAD; color: #fff; }
+body.theme-rusgeocom .pill { background: #1C77C3; color: #fff; }
+body.theme-elbin .pill { background: #ffd546; color: #111; }
+body.theme-elbin .page-hero .logo-mark { background: #ffd546; }
 
 .page-hero {
   background: var(--brand);
